@@ -1,0 +1,15 @@
+
+POST http://localhost:3000 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "john",
+    "familyName": "smith",
+    "number":"5438975209875",
+    "co":"fg"
+}
+
+###
+
+GET  http://localhost:3000 HTTP/1.1
+content-type: application/json
