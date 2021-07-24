@@ -7,20 +7,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// mongoose.set("debug", true);
-mongoose.connect(
-  "mongodb://admin:password@localhost:27017/user?authSource=admin",
-  {
+const mongoPath = process.env.MONGO_PATH;
+
+console.log({ mongoPath });
+
+mongoose.set("debug", true);
+
+mongoose
+  .connect(mongoPath, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  },
-  (err) => {
-    if (!err) return;
-    console.log(err);
-  }
-);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
-app.get("/",async (req, res) => {
+app.get("/", async (req, res) => {
   res.send(await UserModel.find({}));
 });
 

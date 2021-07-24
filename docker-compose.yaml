@@ -1,0 +1,30 @@
+version: "3"
+services:
+  node:
+    image: "node:13-alpine"
+    user: "node"
+    restart: always
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    environment:
+      NODE_ENV: production
+      MONGO_PATH: mongodb://admin:password@mongo/user?authSource=admin
+    ports: 
+      - 3000:3000
+    expose:
+      - "3000"
+    command: "npm start"
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+volumes:
+  mongo-data:
+    driver: local
